@@ -6,13 +6,16 @@
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
+    "@types/axios": "^0.14.0",
     "@types/jest": "^27.4.0",
     "@types/node": "^16.11.24",
     "@types/react": "^17.0.39",
     "@types/react-dom": "^17.0.11",
+    "@types/redux-persist": "^4.3.1",
     "@types/redux-saga": "^0.10.5",
     "@types/styled-components": "^5.1.22",
     "axios": "^0.26.0",
+    "dotenv": "^16.0.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.6",
@@ -50,5 +53,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://localhost:3000"
+  "proxy": "https://openapi.naver.com"
 }

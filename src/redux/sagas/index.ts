@@ -1,6 +1,6 @@
 import { all } from "redux-saga/effects";
-import { countSaga } from "./saga";
+import { reqSaga } from "./request";
 
 export function* rootSaga() {
-  yield all([countSaga()]);
+  yield all([reqSaga()]);
 }

@@ -1,105 +1,36 @@
 import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
+import { getAPI } from "../api";
 import {
   LineChart,
   Line,
+  Bar,
   XAxis,
   YAxis,
   CartesianGrid,
   Tooltip,
   Legend,
-  ResponsiveContainer,
 } from "recharts";
-const data2 = [
-  {
-    name: "Page A",
-    uv: 4000,
-    pv: 2400,
-    amt: 2400,
-  },
-  {
-    name: "Page B",
-    uv: 3000,
-    pv: 1398,
-    amt: 2210,
-  },
-  {
-    name: "Page C",
-    uv: 2000,
-    pv: 9800,
-    amt: 2290,
-  },
-  {
-    name: "Page D",
-    uv: 2780,
-    pv: 3908,
-    amt: 2000,
-  },
-  {
-    name: "Page E",
-    uv: 1890,
-    pv: 4800,
-    amt: 2181,
-  },
-  {
-    name: "Page F",
-    uv: 2390,
-    pv: 3800,
-    amt: 2500,
-  },
-  {
-    name: "Page G",
-    uv: 3490,
-    pv: 4300,
-    amt: 2100,
-  },
-];
+import { useSelector } from "react-redux";
+//types
+import { RootState } from "../redux/reducers";
+import { Request } from "../types/types";
 
-const StyledBox = styled.div``;
+const Chart = () => {
+  const response = useSelector((state: RootState) => state.resReducer);
+  const request = useSelector((state: RootState) => state.reqReducer);
+  const [data, setData] = useState<Request[]>([]);
 
-const data = [
-  {
-    title: "정장",
-    keyword: ["정장"],
-    data: [
-      {
-        period: "2017-08-01",
-        group: "10",
-        ratio: 9.7021,
-      },
-      {
-        period: "2017-09-01",
-        group: "10",
-        ratio: 13.55561,
-      },
-      {
-        period: "2017-08-01",
-        group: "20",
-        ratio: 57.88466,
-      },
-      {
-        period: "2017-09-01",
-        group: "20",
-        ratio: 100,
-      },
-    ],
-  },
-];
+  // 렌더링시,응답값이 바뀔때마다 데이터 갱신
+  useEffect(() => {
+    getAPI(request).then((res) => setData(res.data.results[0].data));
+  }, [request]);
 
-interface Props {
-  lineDatas?: {
-    period: string;
-    group: string;
-    ratio: number;
-  };
-}
-
-const Chart: React.FC<Props> = ({ lineDatas }) => {
-  const [lineData, setLineData] = useState<any>(null);
   return (
     <>
-      <LineChart width={400} height={400} data={data[0].data}>
+      <LineChart width={1200} height={500} data={data}>
         <Line
+          animationDuration={500}
           type="monotone"
           dataKey="ratio"
           stroke="#8884d8"
@@ -107,7 +38,7 @@ const Chart: React.FC<Props> = ({ lineDatas }) => {
         />
 
         <CartesianGrid stroke="#ccc" />
-        <XAxis dataKey="period" />
+        <XAxis dataKey="group" />
         <YAxis />
         <Tooltip />
         <Legend />

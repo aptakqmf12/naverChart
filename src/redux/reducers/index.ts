@@ -1,4 +1,7 @@
 import { combineReducers } from "redux";
-import { reducer } from "./reducer";
 
-export const rootReducer = combineReducers({ reducer });
+import { resReducer } from "./response";
+import { reqReducer } from "./request";
+
+export const rootReducer = combineReducers({ reqReducer, resReducer });
+export type RootState = ReturnType<typeof rootReducer>;

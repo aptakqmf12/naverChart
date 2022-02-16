@@ -1,60 +1,47 @@
 import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
+import { useSelector, useDispatch } from "react-redux";
 
-const StyledFormBox = styled.div`
-  form {
-    display: flex;
-    justify-content: center;
+//type
+import { RootState } from "../redux/reducers";
+
+const StyledInput = styled.div`
+  fieldset {
+    position: relative;
+    display: inline-flex;
     align-items: center;
-    fieldset {
-      position: relative;
-      display: inline-flex;
-      align-items: center;
-      & + fieldset {
-        margin-left: 10px;
-      }
-      legend {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 0;
-        height: 0;
-        overflow: hidden;
-        font-size: 0;
-      }
+    & + fieldset {
+      margin-left: 10px;
+    }
+    legend {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 0;
+      overflow: hidden;
+      font-size: 0;
     }
   }
 `;
 
-const Input = () => {
+interface Props {
+  legend: string;
+  inputType: string;
+  inputId: string;
+}
+const Input: React.FC<Props> = ({ legend, inputType, inputId }) => {
+  const val = useSelector((state: RootState) => state.reqReducer);
+
   return (
-    <StyledFormBox>
-      <form>
-        <fieldset>
-          <legend>시작일자</legend>
-          <label htmlFor="startDate">시작일자 : </label>
-          <input type="date" id="startDate" placeholder="startDate" />
-        </fieldset>
-
-        <fieldset>
-          <legend>종료일자</legend>
-          <label htmlFor="endDate">종료일자 : </label>
-          <input type="date" id="endDate" placeholder="endDate" />
-        </fieldset>
-
-        <fieldset>
-          <legend>카테고리</legend>
-          <label>카테고리 : </label>
-          <input type="number" placeholder="category" />
-        </fieldset>
-
-        <fieldset>
-          <legend>키워드</legend>
-          <label>키워드 : </label>
-          <input type="text" placeholder="keyword" />
-        </fieldset>
-      </form>
-    </StyledFormBox>
+    <StyledInput>
+      <fieldset>
+        <legend>{legend}</legend>
+        <label htmlFor={inputId}>{legend} : </label>
+        <input type={inputType} id={inputId} placeholder={inputId} />
+      </fieldset>
+      <div>값은 : {val + ".category"}</div>
+    </StyledInput>
   );
 };
 
