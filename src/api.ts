@@ -1,7 +1,7 @@
 import axios from "axios";
-import { Request } from "./types/types";
+import process from "process";
 
-export async function getAPI(request: Request) {
+export async function getAPI(request: any) {
   const res = await axios.post(
     "/v1/datalab/shopping/category/keyword/age",
     {
@@ -12,12 +12,12 @@ export async function getAPI(request: Request) {
       keyword: request.keyword,
       device: request.device,
       gender: request.gender,
-      ages: ["10", "20"],
+      ages: request.ages,
     },
     {
       headers: {
-        "X-Naver-Client-Id": "mpK4Xes94zbMMu3jJ09b",
-        "X-Naver-Client-Secret": "NWFgxlr90B",
+        "X-Naver-Client-Id": process.env.REACT_APP_NAVER_ID as string,
+        "X-Naver-Client-Secret": process.env.REACT_APP_NAVER_SECRET as string,
       },
     }
   );

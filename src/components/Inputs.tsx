@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useRef, ChangeEvent } from "react";
+import React, { useState, useRef, ChangeEvent } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
-import { request, REQ_TRIGGER } from "../redux/reducers/request";
+import { REQ_TRIGGER } from "../redux/reducers/request";
 
 //type
 import { RootState } from "../redux/reducers";
-import { Request } from "../types/types";
+import { Request, Checkboxs } from "../types/types";
 
 const StyledInputBox = styled.div`
   display: flex;
@@ -98,10 +98,17 @@ const StyledSelects = styled.div`
 `;
 
 const Inputs = () => {
-  const item = useSelector((state: RootState) => state.reqReducer);
   const dispatch = useDispatch();
-
   const firstInput = useRef<HTMLInputElement>(null);
+
+  const [ages, setAges] = useState<Checkboxs[]>([
+    { age: "10", checked: false },
+    { age: "20", checked: false },
+    { age: "30", checked: false },
+    { age: "40", checked: false },
+    { age: "50", checked: false },
+    { age: "60", checked: false },
+  ]);
 
   const [inputs, setInputs] = useState<Request>({
     startDate: "",
@@ -109,26 +116,17 @@ const Inputs = () => {
     category: "",
     keyword: "",
     timeUnit: "month",
-    ages: [],
     device: "",
     gender: "",
   });
-  const {
-    startDate,
-    endDate,
-    category,
-    keyword,
-    timeUnit,
-    ages,
-    device,
-    gender,
-  } = inputs;
+  const { startDate, endDate, category, keyword, timeUnit, device, gender } =
+    inputs;
 
   const onChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
-    console.log(e.target.name);
     const { name, value } = e.target;
+
     setInputs({
       ...inputs,
       [name]: value,
@@ -137,12 +135,25 @@ const Inputs = () => {
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(inputs);
-    dispatch({ type: REQ_TRIGGER, payload: inputs });
-    //{type:REQ, payload:inputs}로 입력한값들(inputs)를 넘겨준다
+
+    const filterdAges = ages
+      .filter((age) => age.checked === true)
+      .map((el) => el.age);
+    dispatch({ type: REQ_TRIGGER, payload: inputs, ages: filterdAges });
 
     firstInput.current?.focus();
     // setInputs({ startDate: "", endDate: "", category: "", keyword: "" });
+  };
+
+  const onCheckboxClick = (e: ChangeEvent<HTMLInputElement>) => {
+    let mapped: Checkboxs[] = [];
+    mapped = [...ages];
+    mapped.map((el) => {
+      if (el.age === e.target.value) {
+        el.checked = !el.checked;
+      }
+    });
+    setAges(mapped);
   };
 
   return (
@@ -246,11 +257,18 @@ const Inputs = () => {
           </fieldset>
 
           <fieldset>
-            {[10, 20, 30, 40, 50, 60].map((e) => {
+            {ages.map((e) => {
               return (
-                <div>
-                  <label htmlFor={`age_${e}`}>{e}</label>
-                  <input type="checkbox" id={`age_${e}`} />
+                <div key={e.age}>
+                  <label htmlFor={`age_${e.age}`}>{e.age}</label>
+                  <input
+                    type="checkbox"
+                    name="ages"
+                    value={`${e.age}`}
+                    id={`age_${e.age}`}
+                    checked={e.checked}
+                    onChange={onCheckboxClick}
+                  />
                 </div>
               );
             })}

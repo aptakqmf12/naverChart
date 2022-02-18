@@ -1,4 +1,5 @@
-import { Request, RequestOptions } from "../../types/types";
+import { Reducer } from "redux";
+import { Request, Age } from "../../types/types";
 
 export type ReducerActionType = ReturnType<typeof request>;
 
@@ -12,17 +13,20 @@ const REQ_STATE: Request = {
   device: "",
   gender: "",
 };
-
 export const REQ_TRIGGER = "REQ_TRIGGER" as const;
 
-export const request = (payload: Request) => {
+export const request = (payload: Request, ages: Age) => {
   return {
     type: REQ_TRIGGER,
     payload: payload,
+    ages: ages,
   };
 };
 
-export function reqReducer(state = REQ_STATE, action: ReducerActionType) {
+export const reqReducer: Reducer<any, ReducerActionType> = (
+  state: Request = REQ_STATE,
+  action: ReducerActionType
+) => {
   switch (action.type) {
     case REQ_TRIGGER:
       return {
@@ -34,9 +38,10 @@ export function reqReducer(state = REQ_STATE, action: ReducerActionType) {
         timeUnit: action.payload.timeUnit,
         device: action.payload.device,
         gender: action.payload.gender,
+        ages: action.ages,
       };
 
     default:
       return state;
   }
-}
+};

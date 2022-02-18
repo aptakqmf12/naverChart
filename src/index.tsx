@@ -3,13 +3,16 @@ import ReactDOM from "react-dom";
 import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
 import App from "./App";
-import { store } from "./redux/store"; //persist(reducers, sagas) 합쳐진 store
+import { store, persistor } from "./redux/store"; //persist(reducers, sagas) 합쳐진 store
+import { PersistGate } from "redux-persist/integration/react";
 
 ReactDOM.render(
   <Provider store={store}>
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
+    <PersistGate persistor={persistor}>
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    </PersistGate>{" "}
   </Provider>,
   document.getElementById("root")
 );

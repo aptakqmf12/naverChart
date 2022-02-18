@@ -5,17 +5,25 @@ interface Request extends RequestOptions {
   category: string;
   keyword: string;
 }
+
+type Age = "10" | "20" | "30" | "40" | "50" | "60" | null | undefined;
+
 interface RequestOptions {
   timeUnit?: "date" | "week" | "month";
-  ages?: Array<`${1 | 2 | 3 | 4 | 5 | 6}0`>;
   device?: "pc" | "mo" | "";
   gender?: "m" | "f" | "";
+  ages?: Age[];
 }
+interface Checkboxs {
+  age: Age;
+  checked: boolean;
+}
+
 //반환타입
 interface Response {
   period: string;
   ratio: number;
-  group: Array<`${1 | 2 | 3 | 4 | 5 | 6}0`> | null;
+  group: Age | undefined;
 }
 
-export type { Request, Response, RequestOptions };
+export type { Request, Response, RequestOptions, Checkboxs, Age };
