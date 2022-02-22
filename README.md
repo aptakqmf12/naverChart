@@ -17,3 +17,7 @@
 ## Naver Open API 활용 시 발생하는 CORS Issue에 대한 해결 방법
 - SOP에 의해 Origin이 달라 CORS가 막히기 때문에, 네이버 API의 응답 Origin을 proxy를 이용해 네이버api주소으로 바꾸어 임시로 CORS을 하였습니다.
 - 따라서 package.json 파일에 proxy를 추가해주었습니다.
+
+## 피드백
+1. fetchData를 리덕스에 실제로 적용하지않고 useEffect내부에서만 사용했다
+2. recharts에 다중 라인으로 표현할시 {"10": number, "20":number, "30":number .... "60":number}이런식으로 한 객체에 나이별 데이터가 들어가야하는데 reduce가 익숙하지않아 그루핑에 실패했다.
