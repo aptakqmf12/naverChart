@@ -1,5 +1,6 @@
 
 ## build 
+`npm install`
 `npm run start`
 
 ## 프로젝트 설명
