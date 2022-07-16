@@ -1,7 +1,7 @@
 
 ## build 
-`npm install`
-`npm run start`
+`npm install` `npm run start`
+`yarn` `yarn start`
 
 ## 프로젝트 설명
 - 본프로젝트는 React(functional),Typescript, Redux-saga, Redux-persist, styled-components, recharts.js를 사용하여 네이버API정보를 가져와 차트로 보여주는 프로젝트입니다.
