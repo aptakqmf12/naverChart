@@ -1,5 +1,5 @@
 
-## build 
+## start
 `npm install` <br />`npm run start` <br /><br />
 `yarn` <br />`yarn start`
 
