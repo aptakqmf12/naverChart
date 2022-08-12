@@ -19,6 +19,7 @@
 ## Naver Open API 활용 시 발생하는 CORS Issue에 대한 해결 방법
 - SOP에 의해 Origin이 달라 CORS가 막히기 때문에, 네이버 API의 응답 Origin을 proxy를 이용해 네이버api주소으로 바꾸어 임시로 CORS을 하였습니다.
 - 따라서 package.json 파일에 proxy를 추가해주었습니다.
+- 근본적인 해결책은 서버쪽에서 처리해줘야하며, 응답헤더의 `Access-Control-Allow-Origin`에 도메인을 추가해주거나 wildcard인 '*'을 추가해줘야합니다.
 
 ## 피드백
 1. fetchData를 리덕스에 실제로 적용하지않고 useEffect내부에서만 사용했다
